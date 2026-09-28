@@ -1,0 +1,40 @@
+Write a C program that extracts a single valid IPv4 address (optionally followed by a port number) embedded anywhere in a line of text.
+
+Function prototype (implement prototype exactly):
+// Returns 1 if a valid address was found, 0 otherwise. 
+// On success: *outAddress holds the 32-bit value, and 
+// *outPort holds the port number, or -1 if no port was present. 
+// On failure: *outAddress is set to 0 and *outPort is set to -1. 
+int extractIPv4(const char* str, unsigned long* outAddress, int* outPort); 
+
+Token Rules:
+Only digits, periods (.), and colons (:) are ever part of a candidate token. Every other character must be skipped when scanning.
+A candidate token must match the grammar in full, no partial matches, no truncating a longer invalid run to find a valid piece inside it.
+
+Address Grammer:
+Four octets separated by periods (octet.octet.octet.octet)
+Each octet: 1-3 digits, numeric value 0-255
+No leading 0 unless the value is exactly 0
+An optional :port may follow the fourth octet, with 1-5 digits in a numeric range 0-65525, no leading 0 unless the value is exactly 0, and if a colon is present, the port must be fully valid, or the entire match is rejected.
+Reject if there is a wrong octet count, empty octet, out of range octet or port, if there is a leading 0 unless the value is exactly 0, a second colon, a colon not immediately following the fourth octet, or a stray period/colon directly adjacent to an otherwise valid address
+Exactly on valid address may be extracted per line
+
+Hard Constraints - do not use:
+Any string to number conversion function, such as atoi, atol, atoll, strol, stroul, strtod, sscanf, or scanf with numeric conversions
+Any address parsing library functions, such as inet_aton, inet_pton, inet_addr, or equivalents
+Any regular expression facility (POSIX regex.h or similar) - all parsing validation logic must be hand written, character by character
+
+Other Rules
+Standard Character classification functions like isdigit are allowed
+ALl digit accumulation (turning characters into numeric values) must be done manually, not via any library conversion
+
+main() Requirements:
+Use fgets (or equivalent) to read a full line of input per iteration, not scanf for the line itself
+Continously prompt the user for input until they type END (case sensitive), then print “Program terminated.” and exit
+On successful extraction, print exactly “Extracted IPV4 address: A.B.C.D (decimal value: N, port: P)” where A.B.C.D are the four octets, N is the 32 bit decimal value of the address and P is either the port number or the literal text none.
+On failure, print exactly “Invalid input: no valid IPv4 address found”
+
+Final Notes:
+Show reasoning for how the scanner decides where a candidate token starts and ends
+Point out any edge cases in this grammar that are easy to get wrong
+Handle memory/buffer sizing for the input line explicitly (no unbounded reads)

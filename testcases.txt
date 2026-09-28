@@ -1,0 +1,15 @@
+Test Case Name: Input - expected output - pass/fail
+All 0: 0.0.0.0 - Extracted IPV4 address: 0.0.0.0 (decimal value: 0, port: none) - pass
+All 255: 255.255.255.255 - Extracted IPV4 address: 255.255.255.255 (decimal value: 4294967295, port: none) - pass
+Random w/no port: sdfjksdjglksdjalks - Invalid input: no valid IPv4 address found -  pass
+Random w/port: sdfjksdjglk192.0.0.1sdjalks - Extracted IPV4 address: 192.0.0.1 (decimal value: 3221225473, port: none) - pass
+Leading 0: 02.0.0.1 - Invalid input: no valid IPv4 address found - pass
+Octet out of range: 256.0.0.1 - Invalid input: no valid IPv4 address found - pass
+Octet too many digits: 1236.0.0.1 - Invalid input: no valid IPv4 address found - pass
+Too many octets: 1.1.1.1.1 - Invalid input: no valid IPv4 address found - pass
+Too few octets: 1.1.1 - Invalid input: no valid IPv4 address found - pass
+Empty octet: 1.0..1 - Invalid input: no valid IPv4 address found - pass
+Ending colon w/no port: 1.1.1.1: - Invalid input: no valid IPv4 address found - pass
+Ending w/double colon: 1.1.1.1::11 - Invalid input: no valid IPv4 address found - pass
+With words: There is an 1.1.1.1 ip addr in here - Extracted IPV4 address: 1.1.1.1 (decimal value: 16843009, port: none) - pass
+Multiple address’s: 1.1.1.1 a 2.2.2.2 - Extracted IPV4 address: 1.1.1.1 (decimal value: 16843009, port: none) - pass
